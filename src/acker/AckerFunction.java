@@ -3,8 +3,9 @@ package acker;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class AckerFunction
 {
@@ -21,9 +22,6 @@ public class AckerFunction
     {
         int result = 0;
         numberOfInvocations++;
-        //TODO: implement the Ackermann's function to trace the method invocation
-        //      history and count the total number of invocations.
-
         printSpaces();
         System.out.println("Enter method acker: m = " + m + ", n = " + n);
 
@@ -55,67 +53,59 @@ public class AckerFunction
             System.out.print(" ");
     }
 
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException, NumberFormatException
     {
-
         //TODO: read two nonnegtive intergers from stardard input and
         //      call the recursive method acker(int, int).
         //        Output the total number of method invocations.
 
-        int m = 0;
-        int n = 0;
+        int m;
+        int n;
+        int result;
         BufferedReader ackerInput = new BufferedReader(new InputStreamReader(System.in));
-        int[] ackArr = new int[0];
-        String[] strAck = new String[0];
-        System.out.println("Input two numbers seperated by a space");
+        String[] strAck;
 
-//        try
-//        {
-//            strAck = ackerInput.readLine().split(" ");
-//        } catch (NumberFormatException | IOException e)
-//        {
-//            System.out.println("Must input an integer!");
-//        }
-
-//        try
-//        {
-//            strAck = ackerInput.readLine().split(" ");
-//        } catch (IOException e)
-//        {
-//            e.printStackTrace();
-//        }
-
-
-        try
+        // Takes user input first as an array of Strings and then converts to them to a list to parse the integers
+        while (true)
         {
+            System.out.println("Input two numbers seperated by a space, or type q to quit");
             strAck = ackerInput.readLine().split(" ");
+            List<String> ackList = new ArrayList<>(Arrays.asList(strAck));
 
-            for(int i = 0; i < strAck.length; i++)
+            if (ackList.contains("q") || ackList.contains("Q"))
             {
-                m = Integer.parseInt(strAck[0]);
-                n = Integer.parseInt(strAck[1]);
+                System.out.println("Exiting...");
+                System.exit(0);
             }
-            if (m < 0 || n <0)
-                throw new IllegalArgumentException();
-        } catch (IOException e)
-        {
-            System.out.println("Must input an integer!");
-        } catch (IllegalArgumentException ie)
-        {
-            System.out.println("M and N must be positive integers!");
+
+            // search in array index 0 and 1 for m and n respectively, ignoring other characters inputted as well as whitespace
+            try
+            {
+                m = Integer.parseInt(ackList.get(0));
+                n = Integer.parseInt(ackList.get(1));
+
+                if ((m < 0) || (n < 0))
+                {
+                    throw new IllegalArgumentException();
+                }
+            } catch (NumberFormatException nfe) //throws exception if m or n are not integers
+            {
+                System.out.println("Must input an integer!\n");
+                continue;
+            } catch (IllegalArgumentException ie)
+            {
+                System.out.println("M and N must be positive integers!\n");
+                continue;
+            } catch (IndexOutOfBoundsException ibe)
+            {
+                System.out.println("Must input more than one integer!");
+                continue;
+            }
+
+            result = acker(m,n);
+            System.out.println("Total number of invocations: " + countOfInvocations() + ", Result: " + result + "\n");
+            numberOfInvocations = 0;
         }
-
-
-
-
-
-        //TODO: add exception handling for:
-        //       - when either m or n is >  0
-        //       - when m or n is not an int
-        //       - when user wants to quit the program
-
-        int result = acker(m,n);
-        System.out.println("Total number of invocations: " + countOfInvocations() + ", Result: " + result);
     }
 }
 

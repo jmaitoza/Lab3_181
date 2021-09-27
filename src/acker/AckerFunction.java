@@ -80,6 +80,10 @@ public class AckerFunction
             n = Integer.parseInt(strAck[1]);
         }
 
+        //TODO: add exception handling for:
+        //       - when either m or n is >  0
+        //       - when m or n is not an int
+        //       - when user wants to quit the program
 
         int result = acker(m,n);
         System.out.println("Total number of invocations: " + countOfInvocations() + ", Result: " + result);

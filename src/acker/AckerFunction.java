@@ -1,5 +1,9 @@
 package acker;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class AckerFunction
 {
     private static int spaces = 0;
@@ -56,9 +60,29 @@ public class AckerFunction
         //      call the recursive method acker(int, int).
         //        Output the total number of method invocations.
 
-        int m,n = 0;
-        int result = acker(1,2);
-        System.out.println("Total number of invocations: " + numberOfInvocations + ", Result: " + result);
+        int m = 0;
+        int n = 0;
+        BufferedReader ackerInput = new BufferedReader(new InputStreamReader(System.in));
+        int[] ackArr = new int[0];
+        String[] strAck = new String[0];
+        System.out.println("Input two numbers seperated by a space");
+
+        try
+        {
+            strAck = ackerInput.readLine().split(" ");
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        for(int i = 0; i < strAck.length; i++)
+        {
+            m = Integer.parseInt(strAck[0]);
+            n = Integer.parseInt(strAck[1]);
+        }
+
+
+        int result = acker(m,n);
+        System.out.println("Total number of invocations: " + countOfInvocations() + ", Result: " + result);
     }
 }
 

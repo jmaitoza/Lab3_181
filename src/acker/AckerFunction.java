@@ -14,39 +14,32 @@ public class AckerFunction
     public static int acker(int m, int n)
     {
         int result = 0;
-
+        numberOfInvocations++;
         //TODO: implement the Ackermann's function to trace the method invocation
         //      history and count the total number of invocations.
 
-        /*
-         * First implement the base case
-         **/
+        printSpaces();
+        System.out.println("Enter method acker: m = " + m + ", n = " + n);
 
-        //if m = 0; -> n+1
-        //if n = 0; -> acker(m-1,1)
-        //otherwise; -> acker(m-1,acker(m,n-1))
+        spaces += 4;
 
-        /*
-        once you reach the first case where m = 0, n is then computed as n+1 and stored as the result value,
-        and the acker function steps one line out
-        */
+        if (m == 0)
+        {
+          result = n + 1;
+        }
+        else if ((n == 0) && (m > 0))
+        {
+          result = acker(m - 1, 1);
+        }
+        else if ((m > 0) && (n > 0))
+        {
+          result = acker(m - 1, acker(m, n - 1));
+        }
 
-         if (m == 0)
-         {
-             result = n += 1;
-         }
-         else if ((n == 0) && (m > 0))
-         {
-             return acker(m - 1, 1);
-         }
-         else if ((m > 0) && (n > 0))
-         {
-             return acker(m - 1, acker(m, n - 1));
-         }
-
+        spaces -= 4;
+        printSpaces();
+        System.out.println("Leave method acker: acker("+m+", "+n+") = " + result);
         return result;
-
-         //
     }
 
     // indent the trace messages according to how "deep" the current recursive call is
@@ -63,6 +56,9 @@ public class AckerFunction
         //      call the recursive method acker(int, int).
         //        Output the total number of method invocations.
 
+        int m,n = 0;
+        int result = acker(1,2);
+        System.out.println("Total number of invocations: " + numberOfInvocations + ", Result: " + result);
     }
 }
 

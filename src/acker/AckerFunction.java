@@ -3,6 +3,8 @@ package acker;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.*;
+import java.util.Arrays;
 
 public class AckerFunction
 {
@@ -67,18 +69,45 @@ public class AckerFunction
         String[] strAck = new String[0];
         System.out.println("Input two numbers seperated by a space");
 
+//        try
+//        {
+//            strAck = ackerInput.readLine().split(" ");
+//        } catch (NumberFormatException | IOException e)
+//        {
+//            System.out.println("Must input an integer!");
+//        }
+
+//        try
+//        {
+//            strAck = ackerInput.readLine().split(" ");
+//        } catch (IOException e)
+//        {
+//            e.printStackTrace();
+//        }
+
+
         try
         {
             strAck = ackerInput.readLine().split(" ");
+
+            for(int i = 0; i < strAck.length; i++)
+            {
+                m = Integer.parseInt(strAck[0]);
+                n = Integer.parseInt(strAck[1]);
+            }
+            if (m < 0 || n <0)
+                throw new IllegalArgumentException();
         } catch (IOException e)
         {
-            e.printStackTrace();
-        }
-        for(int i = 0; i < strAck.length; i++)
+            System.out.println("Must input an integer!");
+        } catch (IllegalArgumentException ie)
         {
-            m = Integer.parseInt(strAck[0]);
-            n = Integer.parseInt(strAck[1]);
+            System.out.println("M and N must be positive integers!");
         }
+
+
+
+
 
         //TODO: add exception handling for:
         //       - when either m or n is >  0
